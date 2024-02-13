@@ -12,7 +12,7 @@ st.set_page_config(
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
 
-st.image(os.path.join("styles", "swasthai_banner.png"))
+st.image(os.path.join("assets", "swasthai_banner.png"))
 st.title('About Project SwasthAI')
 instructions = """
         Either upload your own image or select from

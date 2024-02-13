@@ -1,13 +1,13 @@
 import streamlit as st
 import os
 
+profile_pic = os.path.join("assets", "round_img.png")
 PAGE_TITLE = "Digital CV | John Doe"
-#PAGE_ICON = ":wave:"
 NAME = "Rohan Shaw"
 DESCRIPTION = """
 Aspiring data nerd with a passion for data analysis and visualization.
 """
-CSS_FILE= os.path.join("styles", 'styles.css')
+CSS_FILE= os.path.join("assets", 'styles.css')
 
 EMAIL = "rohnsha0@gmail.com"
 SOCIAL_MEDIA = {
@@ -16,6 +16,7 @@ SOCIAL_MEDIA = {
     "facebook": "https://facebook.com/rohnsha0",
     "Instagram": "https://instagram.com/rohnsha0",
 }
+
 PROJECTS = {
     "🏆 Sales Dashboard - Comparing sales across three stores": "https://youtu.be/Sb0A9i6d320",
     "🏆 Income and Expense Tracker - Web app with NoSQL database": "https://youtu.be/3egaMfE9388",
@@ -23,18 +24,15 @@ PROJECTS = {
     "🏆 MyToolBelt - Custom MS Excel add-in to combine Python & Excel": "https://pythonandvba.com/mytoolbelt/",
 }
 
-
 st.set_page_config(
     page_title="Rohan Shaw: Digital CV", 
-    page_icon="https://i.postimg.cc/zfjkwzPq/swasth-AILogo.png", 
+    page_icon=profile_pic, 
     layout="centered", 
     initial_sidebar_state="collapsed"
 )
 
 with open(CSS_FILE) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
-
-profile_pic = os.path.join("styles", "prof.jpg")
 
 # --- HERO SECTION ---
 col1, col2 = st.columns(2, gap="small")
@@ -59,6 +57,7 @@ cols = st.columns(len(SOCIAL_MEDIA))
 for index, (platform, link) in enumerate(SOCIAL_MEDIA.items()):
     cols[index].write(f"[{platform}]({link})")
 
+st.button("bye", type="primary")
 
 # --- SKILLS ---
 st.write('\n')

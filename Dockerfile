@@ -12,4 +12,4 @@ COPY . ./
 RUN pip install -r requirements.txt
 
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
-CMD  ["streamlit", "run", "Home.py"]
+CMD  ["streamlit", "run", "home.py"]

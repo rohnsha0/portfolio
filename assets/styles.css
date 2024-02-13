@@ -1,7 +1,5 @@
 a {
     text-decoration: none;
-    color: white !important;
-    font-weight: 500;
 }
 
 a:hover {
@@ -14,6 +12,11 @@ ul {list-style-type: none;}
 hr {
     margin-top: 0px;
     margin-bottom: 5%;
+}
+
+button {
+    color: bisque;
+    background-color: aqua;
 }
 
 #MainMenu {visibility: hidden;}
