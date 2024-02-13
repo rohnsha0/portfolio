@@ -2,12 +2,16 @@ a {
     text-decoration: none;
 }
 
+a:link {
+    text-decoration: none;
+}
+
 a:hover {
     color: #d33682 !important;
     text-decoration: none;
 }
 
-ul {list-style-type: none;}
+ul {list-style-type: disc;}
 
 hr {
     margin-top: 0px;

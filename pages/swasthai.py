@@ -4,13 +4,18 @@ import os
 
 st.set_page_config(
     page_title="Rohan Shaw: SwasthAI", 
-    page_icon="https://i.postimg.cc/zfjkwzPq/swasth-AILogo.png", 
+    page_icon=os.path.join("assets", "swasthai-favicon.png"),
     layout="centered", 
     initial_sidebar_state="collapsed"
 )
 
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
+
+with open(
+    os.path.join("assets", "styles.css")
+) as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 st.image(os.path.join("assets", "swasthai_banner.png"))
 st.title('About Project SwasthAI')
@@ -66,7 +71,7 @@ st.write("""
     \nThink of it this way: when you feed in a new image, the CNN analyzes it, calculates the probability of each possible disease, and presents it like a scorecard. It doesn't diagnose, but helps doctors see potential issues they might miss.
 """)
 
-st.warning('All features below are only exclusive on the mobile application.')
+st.warning('All features below are only exclusive on the **[mobile application](https://github.com/rohnsha0/SwasthAI-androidApp)**.')
 
 st.header("Care+")
 st.write("""
