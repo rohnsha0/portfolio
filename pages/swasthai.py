@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+import os
 
 st.set_page_config(
     page_title="Rohan Shaw: SwasthAI", 
@@ -11,8 +12,8 @@ st.set_page_config(
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
 
+st.image(os.path.join("styles", "swasthai_banner.png"))
 st.title('About Project SwasthAI')
-st.image("https://i.postimg.cc/PrC9PpsT/image1.jpg")
 instructions = """
         Either upload your own image or select from
         the sidebar to get a preconfigured image.
@@ -21,7 +22,7 @@ instructions = """
         and the output will be displayed to the screen.
         """
 st.write(instructions)
-st.button(label="View onn Github", type="primary")
+st.link_button(label="View on Github", type="primary", url="https://github.com/rohnsha0/SwasthAI")
 selected_option=""
 
 st.sidebar.title("Scan Options")
