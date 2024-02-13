@@ -70,15 +70,21 @@ st.warning('All features below are only exclusive on the mobile application.')
 
 st.header("Care+")
 st.write("""
-    It has a bunch of smaller but useful features included into the app
+    It has a bunch of smaller but useful features included into the app that are designed to help users in their day-to-day life. Some of which are included below:\n
+    - Get suggested health recommendations based on your recent scan, our knowledge base about you, and your past medical history.
+    - Track your daily calorie intake by just scanning the food you eat and we will take care of the rest. Alternatively, you can also manually enter the food you eat.
+    - Get yourself a personalized diet plan based on your recent scan, your past medical history, and your daily calorie intake.\n
+    Apart from these, there are a lot of other features included in the app that are designed to help users in their day-to-day life like contents aimed to educate, spread awareness, etc.
 """)
 
 st.header("mAI")
 st.write("""
     Our app's Chatbot feature serves as a convenient and accessible resource for users to inquire about health-related queries or obtain information about their recent scans. With natural language processing capabilities, users can seamlessly interact with the Chatbot by typing or speaking their questions, receiving prompt and accurate responses. 
     \nWhether seeking advice on symptoms, medication, or general health concerns, or wanting to understand the results of recent scans or medical tests, users can rely on the Chatbot to provide relevant information and guidance. 
-    \nThe Chatbot enhances user experience by offering personalized assistance, facilitating informed decision-making, and empowering users to take proactive steps towards managing their health effectively within the app's ecosystem.
 """)
+with st.expander("How does it help?"):
+     st.error("Feature not yet available.")
+st.write("The Chatbot enhances user experience by offering personalized assistance, facilitating informed decision-making, and empowering users to take proactive steps towards managing their health effectively within the app's ecosystem.")
 
 st.header("Community")
 st.write("""
