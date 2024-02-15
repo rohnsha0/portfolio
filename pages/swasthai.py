@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import os
+from assets import diseaseData
 
 st.set_page_config(
     page_title="Rohan Shaw: SwasthAI", 
@@ -29,9 +30,9 @@ instructions = """
 st.write(instructions)
 st.link_button(label="View on Github", type="primary", url="https://github.com/rohnsha0/SwasthAI")
 selected_option=""
+sub_selected_option=""
 
 st.sidebar.title("Scan Options")
-dropdown_options = ["Lungs", "Brain"]
 
 st.header("Scan")
 st.write("""
@@ -53,13 +54,20 @@ with st.expander("Get an hands-on experience on how the scanning and disease pre
             with col1:
                 st.image(Image.open(file).resize((256, 256)))
             with col2:
+                    dropdown_options = list(diseaseData.diseases.keys())
                     selected_option = st.selectbox("Select Domain Model:", dropdown_options, index=None, placeholder="Unselected", help="Used for selecting the domain model to be used for scanning the image.")
+
+
+
+                    sub_dropdown = diseaseData.diseases.get(selected_option, [])
+
+                    sub_selected_option= st.selectbox("Select Model Varient", sub_dropdown, index=None, placeholder="Unselected", help="Used for selecting the model varient to be used for scanning the image.")
                     isPredicting=st.button("Scan")
                     print(f"predictionStatus: {isPredicting}, selected_option: {selected_option}")
                     if isPredicting: 
-                        if selected_option is None: st.error("Please select an option to scan the image.")
+                        if selected_option and sub_selected_option is None: st.error("Please select an option to scan the image.")
             
-            if selected_option is not None and isPredicting:
+            if selected_option and sub_selected_option is not None and isPredicting:
                 st.info("Scanning...")
                 st.subheader("Results")
                 st.write("Results will be displayed here.")
