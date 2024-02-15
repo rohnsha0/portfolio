@@ -5,24 +5,10 @@ profile_pic = os.path.join("assets", "round_img.png")
 PAGE_TITLE = "Digital CV | John Doe"
 NAME = "Rohan Shaw"
 DESCRIPTION = """
-Aspiring data nerd with a passion for data analysis and visualization.
+A budding tech enthusiast diving into Data Science and Android Development.
 """
 CSS_FILE= os.path.join("assets", 'styles.css')
 
-EMAIL = "rohnsha0@gmail.com"
-SOCIAL_MEDIA = {
-    "LinkedIn": "https://linkedin.com/rohnsha0",
-    "GitHub": "https://github.com/rohnsha0",
-    "facebook": "https://facebook.com/rohnsha0",
-    "Instagram": "https://instagram.com/rohnsha0",
-}
-
-PROJECTS = {
-    "🏆 Sales Dashboard - Comparing sales across three stores": "https://youtu.be/Sb0A9i6d320",
-    "🏆 Income and Expense Tracker - Web app with NoSQL database": "https://youtu.be/3egaMfE9388",
-    "🏆 Desktop Application - Excel2CSV converter with user settings & menubar": "https://youtu.be/LzCfNanQ_9c",
-    "🏆 MyToolBelt - Custom MS Excel add-in to combine Python & Excel": "https://pythonandvba.com/mytoolbelt/",
-}
 
 st.set_page_config(
     page_title="Rohan Shaw: Digital CV", 
@@ -33,6 +19,8 @@ st.set_page_config(
 
 with open(CSS_FILE) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
+with open("assets/resume.pdf", "rb") as file:
+    PDFbyte = file.read()
 
 # --- HERO SECTION ---
 col1, col2 = st.columns(2, gap="small")
@@ -42,80 +30,59 @@ with col1:
 with col2:
     st.title(NAME)
     st.write(DESCRIPTION)
-    #st.download_button(
-      #  label=" 📄 Download Resume",
-        #data=PDFbyte,
-        #file_name=resume_file.name,
-        #mime="application/octet-stream",
-   # )
-    st.write("📫", EMAIL)
-
-
-# --- SOCIAL LINKS ---
-st.write('\n')
-cols = st.columns(len(SOCIAL_MEDIA))
-for index, (platform, link) in enumerate(SOCIAL_MEDIA.items()):
-    cols[index].write(f"[{platform}]({link})")
-
-st.button("bye", type="primary")
+    st.download_button(
+        label="Download Resume",
+        data=PDFbyte,
+        file_name="RohanShaw(Resume).pdf",
+        mime="application/octet-stream",
+    )
+    #st.write("📫", EMAIL)
 
 # --- SKILLS ---
 st.write('\n')
-st.subheader("Hard Skills")
+st.header("Personal Skillset")
+st.write("I have my skillsets divided into two categories: Data Science and Android Development.")
+st.subheader("Data Science")
 st.write(
     """
-- 👩‍💻 Programming: Python (Scikit-learn, Pandas), SQL, VBA
-- 📊 Data Visulization: PowerBi, MS Excel, Plotly
-- 📚 Modeling: Logistic regression, linear regression, decition trees
-- 🗄️ Databases: Postgres, MongoDB, MySQL
+- Have intermediate knowledge of **Python**, and **SQL**
+- Used libraries like **pandas**, **numpy**, **matplotlib**, **seaborn**, etc for data analysis and visualization and libraries like **tensorflow**, **keras**, etc for machine learning and deep learning.
+- Used **SQL-lite** database for implementation in android clients and **no-SQL** database for firebase storage\n
+*(Used **CNN**, **Web Scraping**, **NLP** in SwasthAI, & **Time Series forcasting** in StockSense)*
 """
 )
-
+st.subheader("Android Development")
+st.write(
+    """
+- I have worked on xml as well as jetpack compose for the development of core elements in android development projects.
+- I have used android libraries like retrofit, room, etc for API calls and database management respectively. Also, I have been using MVVM architecture for the development of android applications.\n
+*(Used XML in SwasthAI, & Jetpack Compose in StockSense)*
+"""
+)
 
 # --- WORK HISTORY ---
 st.write('\n')
-st.subheader("Work History")
-st.write("---")
-
+st.header("Projects & Accomplishments")
+st.write("Below are some of the projects I have worked on in the past. ")
 # --- JOB 1
-st.write("🚧", "[**Senior Data Analyst | Ross Industries**](/Scan)")
-st.write("02/2020 - Present")
+st.subheader("SwasthAI: AI-Doctor")
 st.write(
     """
-- ► Used PowerBI and SQL to redeﬁne and track KPIs surrounding marketing initiatives, and supplied recommendations to boost landing page conversion rate by 38%
-- ► Led a team of 4 analysts to brainstorm potential marketing and sales improvements, and implemented A/B tests to generate 15% more client leads
-- ► Redesigned data model through iterations that improved predictions by 12%
+- Used PowerBI and SQL to redeﬁne and track KPIs surrounding marketing initiatives, and supplied recommendations to boost landing page conversion rate by 38%
+- Led a team of 4 analysts to brainstorm potential marketing and sales improvements, and implemented A/B tests to generate 15% more client leads
+- Redesigned data model through iterations that improved predictions by 12%
 """
 )
+st.link_button("Learn More", "/swasthai", type="primary")
 
 # --- JOB 2
 st.write('\n')
-st.write("🚧", "**Data Analyst | Liberty Mutual Insurance**")
-st.write("01/2018 - 02/2022")
+st.subheader("StockSense: Analyze and Predict")
 st.write(
     """
-- ► Built data models and maps to generate meaningful insights from customer data, boosting successful sales eﬀorts by 12%
-- ► Modeled targets likely to renew, and presented analysis to leadership, which led to a YoY revenue increase of $300K
-- ► Compiled, studied, and inferred large amounts of data, modeling information to drive auto policy pricing
+- Built data models and maps to generate meaningful insights from customer data, boosting successful sales eﬀorts by 12%
+- Modeled targets likely to renew, and presented analysis to leadership, which led to a YoY revenue increase of $300K
+- Compiled, studied, and inferred large amounts of data, modeling information to drive auto policy pricing
 """
 )
-
-# --- JOB 3
-st.write('\n')
-st.write("🚧", "**Data Analyst | Chegg**")
-st.write("04/2015 - 01/2018")
-st.write(
-    """
-- ► Devised KPIs using SQL across company website in collaboration with cross-functional teams to achieve a 120% jump in organic traﬃc
-- ► Analyzed, documented, and reported user survey results to improve customer communication processes by 18%
-- ► Collaborated with analyst team to oversee end-to-end process surrounding customers' return data
-"""
-)
-
-
-# --- Projects & Accomplishments ---
-st.write('\n')
-st.subheader("Projects & Accomplishments")
-st.write("---")
-for project, link in PROJECTS.items():
-    st.write(f"[{project}]({link})")
+st.link_button("Learn More", "/swasthai", type="primary")
