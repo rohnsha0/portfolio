@@ -1,0 +1,11 @@
+[[pages]]
+path= "home.py"
+name= "Home"
+
+[[pages]]
+path= "pages/2_stocksense.py"
+name= "stocksense"
+
+[[pages]]
+path= "pages/swasthai.py"
+name= "swasthai"

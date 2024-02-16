@@ -8,6 +8,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+
 with open(
     os.path.join("assets", "styles.css")
 ) as f:

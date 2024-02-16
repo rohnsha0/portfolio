@@ -3,6 +3,7 @@ from PIL import Image
 import os
 from assets import diseaseData
 
+#set page title, icon and layout
 st.set_page_config(
     page_title="Rohan Shaw: SwasthAI", 
     page_icon=os.path.join("assets", "swasthai-favicon.png"),
@@ -10,6 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+#hide the hamburger menu
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
 
@@ -19,7 +21,7 @@ with open(
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 st.image(os.path.join("assets", "swasthai_banner.png"))
-st.title('About Project SwasthAI')
+st.title('About SwasthAI')
 instructions = """
         Either upload your own image or select from
         the sidebar to get a preconfigured image.
@@ -57,11 +59,9 @@ with st.expander("Get an hands-on experience on how the scanning and disease pre
                     dropdown_options = list(diseaseData.diseases.keys())
                     selected_option = st.selectbox("Select Domain Model:", dropdown_options, index=None, placeholder="Unselected", help="Used for selecting the domain model to be used for scanning the image.")
 
-
-
                     sub_dropdown = diseaseData.diseases.get(selected_option, [])
-
                     sub_selected_option= st.selectbox("Select Model Varient", sub_dropdown, index=None, placeholder="Unselected", help="Used for selecting the model varient to be used for scanning the image.")
+                    
                     isPredicting=st.button("Scan")
                     print(f"predictionStatus: {isPredicting}, selected_option: {selected_option}")
                     if isPredicting: 

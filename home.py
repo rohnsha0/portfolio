@@ -1,5 +1,8 @@
 import streamlit as st
 import os
+from st_pages import show_pages_from_config
+
+show_pages_from_config()
 
 profile_pic = os.path.join("assets", "round_img.png")
 PAGE_TITLE = "Digital CV | John Doe"
