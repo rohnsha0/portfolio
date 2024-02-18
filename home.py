@@ -10,13 +10,12 @@ NAME = "Rohan Shaw"
 DESCRIPTION = """
 A budding tech enthusiast diving into Data Science and Android Development.
 """
-CSS_FILE= os.path.join("assets", 'styles.css')
-
+CSS_FILE = os.path.join("assets", 'styles.css')
 
 st.set_page_config(
-    page_title="Rohan Shaw: Digital CV", 
-    page_icon=profile_pic, 
-    layout="centered", 
+    page_title="Rohan Shaw: Digital CV",
+    page_icon=profile_pic,
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
@@ -25,7 +24,7 @@ with open(CSS_FILE) as f:
 with open("assets/resume.pdf", "rb") as file:
     PDFbyte = file.read()
 
-#hide the hamburger menu
+# hide the hamburger menu
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
 
@@ -43,7 +42,7 @@ with col2:
         file_name="RohanShaw(Resume).pdf",
         mime="application/octet-stream",
     )
-    #st.write("📫", EMAIL)
+    # st.write("📫", EMAIL)
 
 # --- SKILLS ---
 st.write('\n')
@@ -92,4 +91,4 @@ st.write(
 - Compiled, studied, and inferred large amounts of data, modeling information to drive auto policy pricing
 """
 )
-st.link_button("Learn More", "/swasthai", type="primary")
+st.link_button("Learn More", "/stocksense", type="primary")

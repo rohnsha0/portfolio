@@ -60,7 +60,7 @@ with st.expander("Get an hands-on experience on how the scanning and disease pre
         \nWe don't collect any of the uploaded images for any any purpose including training, survallieance, etc.
     """)
     file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
-    if (file):
+    if file:
         isPredicting = False
         col1, col2 = st.columns(2)
         with col1:
