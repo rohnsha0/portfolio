@@ -25,6 +25,10 @@ with open(CSS_FILE) as f:
 with open("assets/resume.pdf", "rb") as file:
     PDFbyte = file.read()
 
+#hide the hamburger menu
+hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
+st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
+
 # --- HERO SECTION ---
 col1, col2 = st.columns(2, gap="small")
 with col1:

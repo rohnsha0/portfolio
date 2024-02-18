@@ -3,7 +3,7 @@ path= "home.py"
 name= "Home"
 
 [[pages]]
-path= "pages/2_stocksense.py"
+path= "pages/stocksense.py"
 name= "stocksense"
 
 [[pages]]
