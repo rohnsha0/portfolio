@@ -1,26 +1,38 @@
+import time
+
 import streamlit as st
 from PIL import Image
 import os
 from assets import diseaseData
 
-#set page title, icon and layout
+# set page title, icon and layout
 st.set_page_config(
-    page_title="Rohan Shaw: SwasthAI", 
+    page_title="Rohan Shaw: SwasthAI",
     page_icon=os.path.join("assets", "swasthai-favicon.png"),
-    layout="centered", 
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-#hide the hamburger menu
+# hide the hamburger menu
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
 
 with open(
-    os.path.join("assets", "styles.css")
+        os.path.join("assets", "styles.css")
 ) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 st.image(os.path.join("assets", "swasthai_banner.png"))
+
+with st.sidebar:
+    st.title("Select Function")
+    st.write("""
+        Used to determine what function to be implemented among various options to choose from.
+    """)
+    funcs = ["SwasthAI Home", "Documentations", "Frequently Asked Questions"]
+    fun_selection = st.selectbox("Select app function", funcs, index=0, placeholder="Unselected",
+                                 help="Used for selecting the model varient to be used for scanning the image.")
+
 st.title('About SwasthAI')
 instructions = """
         Either upload your own image or select from
@@ -31,10 +43,8 @@ instructions = """
         """
 st.write(instructions)
 st.link_button(label="View on Github", type="primary", url="https://github.com/rohnsha0/SwasthAI")
-selected_option=""
-sub_selected_option=""
-
-st.sidebar.title("Scan Options")
+selected_option = ""
+sub_selected_option = ""
 
 st.header("Scan")
 st.write("""
@@ -49,28 +59,40 @@ with st.expander("Get an hands-on experience on how the scanning and disease pre
         through the Deep Neural Network in real-time. 
         \nWe don't collect any of the uploaded images for any any purpose including training, survallieance, etc.
     """)
-    file= st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
-    if(file):
-            isPredicting= False
-            col1, col2 = st.columns(2)
-            with col1:
-                st.image(Image.open(file).resize((256, 256)))
-            with col2:
-                    dropdown_options = list(diseaseData.diseases.keys())
-                    selected_option = st.selectbox("Select Domain Model:", dropdown_options, index=None, placeholder="Unselected", help="Used for selecting the domain model to be used for scanning the image.")
+    file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    if (file):
+        isPredicting = False
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(Image.open(file).resize((256, 256)))
+        with col2:
+            dropdown_options = list(diseaseData.diseases.keys())
+            selected_option = st.selectbox("Select Domain Model:", dropdown_options, index=None,
+                                           placeholder="Unselected",
+                                           help="Used for selecting the domain model to be used for scanning the image.")
 
-                    sub_dropdown = diseaseData.diseases.get(selected_option, [])
-                    sub_selected_option= st.selectbox("Select Model Varient", sub_dropdown, index=None, placeholder="Unselected", help="Used for selecting the model varient to be used for scanning the image.")
-                    
-                    isPredicting=st.button("Scan")
-                    print(f"predictionStatus: {isPredicting}, selected_option: {selected_option}")
-                    if isPredicting: 
-                        if selected_option and sub_selected_option is None: st.error("Please select an option to scan the image.")
-            
-            if selected_option and sub_selected_option is not None and isPredicting:
-                st.info("Scanning...")
-                st.subheader("Results")
-                st.write("Results will be displayed here.")
+            sub_dropdown = diseaseData.diseases.get(selected_option, [])
+            sub_selected_option = st.selectbox("Select Model Varient", sub_dropdown, index=None,
+                                               placeholder="Unselected",
+                                               help="Used for selecting the model varient to be used for scanning the image.")
+
+            isPredicting = st.button("Scan")
+            print(f"predictionStatus: {isPredicting}, selected_option: {selected_option}")
+            if isPredicting:
+                if selected_option and sub_selected_option is None: st.error(
+                    "Please select an option to scan the image.")
+
+        if selected_option and sub_selected_option is not None and isPredicting:
+            progress = st.progress(0, text="Checking if the uploaded image is valid")
+            st.code('Image is Valid...', language="markdown")
+            progress.progress(50, text="Testing")
+            st.code(
+                'Image is Valid...\nStarting with progressing',
+                language="markdown")
+            time.sleep(2)
+            progress.progress(100, "Processed")
+            st.subheader("Results")
+            st.write("Results will be displayed here.")
 
 st.subheader("How it works?")
 st.write("""
@@ -79,7 +101,8 @@ st.write("""
     \nThink of it this way: when you feed in a new image, the CNN analyzes it, calculates the probability of each possible disease, and presents it like a scorecard. It doesn't diagnose, but helps doctors see potential issues they might miss.
 """)
 
-st.warning('All features below are only exclusive on the **[mobile application](https://github.com/rohnsha0/SwasthAI-androidApp)**.')
+st.warning(
+    'All features below are only exclusive on the **[mobile application](https://github.com/rohnsha0/SwasthAI-androidApp)**.')
 
 st.header("Care+")
 st.write("""
@@ -96,8 +119,9 @@ st.write("""
     \nWhether seeking advice on symptoms, medication, or general health concerns, or wanting to understand the results of recent scans or medical tests, users can rely on the Chatbot to provide relevant information and guidance. 
 """)
 with st.expander("How does it help?"):
-     st.error("Feature not yet available.")
-st.write("The Chatbot enhances user experience by offering personalized assistance, facilitating informed decision-making, and empowering users to take proactive steps towards managing their health effectively within the app's ecosystem.")
+    st.error("Feature not yet available.")
+st.write(
+    "The Chatbot enhances user experience by offering personalized assistance, facilitating informed decision-making, and empowering users to take proactive steps towards managing their health effectively within the app's ecosystem.")
 
 st.header("Community")
 st.write("""
