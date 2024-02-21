@@ -84,11 +84,8 @@ with st.expander("Get an hands-on experience on how the scanning and disease pre
 
         if selected_option and sub_selected_option is not None and isPredicting:
             progress = st.progress(0, text="Checking if the uploaded image is valid")
-            st.code('Image is Valid...', language="markdown")
+            time.sleep(2)
             progress.progress(50, text="Testing")
-            st.code(
-                'Image is Valid...\nStarting with progressing',
-                language="markdown")
             time.sleep(2)
             progress.progress(100, "Processed")
             st.subheader("Results")

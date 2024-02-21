@@ -33,12 +33,14 @@ with st.expander("Get a hands-on experience on the stock price prediction"):
     then if match found, we will proceed with predicting prices either for 1H or 1D time frames''')
     col1, col2 = st.columns([3, 2])
     with col1:
-        index_selector= ['NSE', 'BSE']
+        index_selector = ['NSE', 'BSE']
         st.selectbox("Select an index to predict stocks from", index_selector)
     with col2:
-        index_selector = ['1D', '1H']
-        st.selectbox("Select a time horizon", index_selector, index=None)
-    st.text_input("Enter a symbol to continue")
-    isPredicting= st.button("Predict Prices")
-    if isPredicting: st.error("Feature unavailable")
+        index_selector = ['1D']
+        st.selectbox("Select a time horizon", index_selector, index=0)
+    symbol_inp = st.text_input("Enter a symbol to continue")
+    isPredicting = st.button("Predict Prices")
+    print(symbol_inp)
+    if isPredicting is True and symbol_inp is not "":
+        st.error("Feature unavailable")
 st.subheader("How it works?")
