@@ -40,7 +40,10 @@ with st.expander("Get a hands-on experience on the stock price prediction"):
         st.selectbox("Select a time horizon", index_selector, index=0)
     symbol_inp = st.text_input("Enter a symbol to continue")
     isPredicting = st.button("Predict Prices")
-    print(symbol_inp)
-    if isPredicting is True and symbol_inp is not "":
+    if isPredicting is True and symbol_inp != "":
         st.error("Feature unavailable")
 st.subheader("How it works?")
+st.write("""
+         The stock price prediction is based on the Long Short-Term Memory (LSTM) neural network. Whenever any symbol is entered, we fetch relevant data i.e. price, trend, etc on either daily or hourly timeframe as selected for prediction, which is then fed into the custom trained LSTM model per stock on the backend. The model then predicts the future stock price based on the historical data and the current trend. The prediction is then displayed to the user.\n
+         If daily time frame is selected, the model is trained on maximum available price data per stock which then predicts the stock price for the next day. If hourly time frame is selected, the model predicts the stock price for the next hour.
+         """)
