@@ -19,6 +19,14 @@ with open(
 
 st.image(os.path.join("assets", "stocksense_banner.png"))
 st.title('About StockSense')
+with st.container(border=True):
+    s1, s2, s3= st.columns(3)
+    with s1:
+        st.write("**Updated:** ___")
+    with s2:
+        st.write("**Version:** ___")
+    with s3:
+        st.write("**Developer:** Rohan Shaw")
 st.write("""
     Welcome to StockSense, an open-source app leveraging advanced deep neural networks for precise stock price predictions. Empower your investment decisions with cutting-edge technology and collaborative development.
 """)
@@ -44,6 +52,6 @@ with st.expander("Get a hands-on experience on the stock price prediction"):
         st.error("Feature unavailable")
 st.subheader("How it works?")
 st.write("""
-         The stock price prediction is based on the Long Short-Term Memory (LSTM) neural network. Whenever any symbol is entered, we fetch relevant data i.e. price, trend, etc on either daily or hourly timeframe as selected for prediction, which is then fed into the custom trained LSTM model per stock on the backend. The model then predicts the future stock price based on the historical data and the current trend. The prediction is then displayed to the user.\n
+        The stock price prediction is based on the Long Short-Term Memory (LSTM) neural network. Whenever any symbol is entered, we fetch relevant data i.e. price, trend, etc on either daily or hourly timeframe as selected for prediction, which is then fed into the custom trained LSTM model per stock on the backend. The model then predicts the future stock price based on the historical data and the current trend. The prediction is then displayed to the user.\n
          If daily time frame is selected, the model is trained on maximum available price data per stock which then predicts the stock price for the next day. If hourly time frame is selected, the model predicts the stock price for the next hour.
-         """)
+        """)
