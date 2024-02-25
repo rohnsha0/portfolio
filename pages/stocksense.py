@@ -1,5 +1,7 @@
 import streamlit as st
 import os
+from assets.stocksense.stockPredictionModel import stockPredictionModel
+import requests
 
 st.set_page_config(
     page_title="Rohan Shaw: StockSense",
@@ -40,16 +42,22 @@ with st.expander("Get a hands-on experience on the stock price prediction"):
     st.write('''When you input the symbol, we will search for the symbol into the database of supported stocks and 
     then if match found, we will proceed with predicting prices either for 1H or 1D time frames''')
     col1, col2 = st.columns([3, 2])
+    stockPredModel= stockPredictionModel()
     with col1:
         index_selector = ['NSE', 'BSE']
         st.selectbox("Select an index to predict stocks from", index_selector)
     with col2:
-        index_selector = ['1D']
-        st.selectbox("Select a time horizon", index_selector, index=0)
-    symbol_inp = st.text_input("Enter a symbol to continue")
+        index_selector = st.selectbox("Select a time horizon", stockPredModel.timeframes, index=0)
+    symbol_inp = st.selectbox("Enter a symbol to continue", stockPredModel.dataset, placeholder="Select a symbol", index=None)
     isPredicting = st.button("Predict Prices")
     if isPredicting is True and symbol_inp != "":
-        st.error("Feature unavailable")
+        progress = st.progress(0, text="Sending requests to server for stock predictions...")
+        stockPredModel.predictStockPrice(symbol=symbol_inp, isIntraday= True)
+        progress.progress(100, text="Predictions are ready to be displayed")
+        if stockPredModel.responseCode == 200:
+            st.success("Predictions are ready to be displayed")
+        if stockPredModel.responseCode != 200 and stockPredModel.responseCode != 999:
+            st.error("Feature unavailable")
 st.subheader("How it works?")
 st.write("""
         The stock price prediction is based on the Long Short-Term Memory (LSTM) neural network. Whenever any symbol is entered, we fetch relevant data i.e. price, trend, etc on either daily or hourly timeframe as selected for prediction, which is then fed into the custom trained LSTM model per stock on the backend. The model then predicts the future stock price based on the historical data and the current trend. The prediction is then displayed to the user.\n
