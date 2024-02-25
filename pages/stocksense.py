@@ -1,7 +1,9 @@
 import streamlit as st
 import os
 from assets.stocksense.stockPredictionModel import stockPredictionModel
-import requests
+from plotly.graph_objects import Line
+import plotly.figure_factory as ff
+import yfinance as yf
 
 st.set_page_config(
     page_title="Rohan Shaw: StockSense",
@@ -9,6 +11,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+st.toast("Download **[mobile application](https://play.google.com/store/apps/details?id=com.rohnsha.stocksense)** for complete features.")
 
 # hide the hamburger menu
 hide_decoration_bar_style = '''<style>header {visibility: hidden;}</style>'''
@@ -22,13 +26,11 @@ with open(
 st.image(os.path.join("assets", "stocksense", "stocksense_banner.png"))
 st.title('About StockSense')
 with st.container(border=True):
-    s1, s2, s3= st.columns(3)
+    s1, s2= st.columns(2)
     with s1:
-        st.write("**Updated:** ___")
+        st.write("**Version:** 3.3 Rose Blooms (web)")
     with s2:
-        st.write("**Version:** ___")
-    with s3:
-        st.write("**Developer:** Rohan Shaw")
+        st.write("**Build Number:** V2024.25.02.11")
 st.write("""
     Welcome to StockSense, an open-source app leveraging advanced deep neural networks for precise stock price predictions. Empower your investment decisions with cutting-edge technology and collaborative development.
 """)
@@ -44,20 +46,42 @@ with st.expander("Get a hands-on experience on the stock price prediction"):
     col1, col2 = st.columns([3, 2])
     stockPredModel= stockPredictionModel()
     with col1:
-        index_selector = ['NSE', 'BSE']
-        st.selectbox("Select an index to predict stocks from", index_selector)
+        index_selector= st.selectbox("Select an index to predict stocks from", stockPredModel.indices, index=0)
     with col2:
-        index_selector = st.selectbox("Select a time horizon", stockPredModel.timeframes, index=0)
+        timeframe = st.selectbox("Select a time horizon", stockPredModel.timeframes, index=0)
     symbol_inp = st.selectbox("Enter a symbol to continue", stockPredModel.dataset, placeholder="Select a symbol", index=None)
+    
+    print(f"index-selector; {index_selector}")
+    if symbol_inp != None:
+        if index_selector==stockPredModel.indices[0]:
+            symbol_inp= f"{symbol_inp}.NS"
+        elif index_selector=="BSE":
+            symbol_inp= f"{symbol_inp}.BO"
+
+    print(f"selected symbol: {symbol_inp}")
+
     isPredicting = st.button("Predict Prices")
-    if isPredicting is True and symbol_inp != "":
-        progress = st.progress(0, text="Sending requests to server for stock predictions...")
-        stockPredModel.predictStockPrice(symbol=symbol_inp, isIntraday= True)
-        progress.progress(100, text="Predictions are ready to be displayed")
-        if stockPredModel.responseCode == 200:
-            st.success("Predictions are ready to be displayed")
-        if stockPredModel.responseCode != 200 and stockPredModel.responseCode != 999:
-            st.error("Feature unavailable")
+
+    print(symbol_inp)
+
+    if isPredicting is True:
+
+        if symbol_inp != None:
+            data= stockPredModel.predictStockPrice(symbol=symbol_inp, isIntraday= True if timeframe == "1D" else False)
+
+            if stockPredModel.responseCode == 200:
+                cData = yf.download(symbol_inp, period="30d", interval="1d")
+                fChart= ff.create_candlestick(cData['Open'], cData['High'], cData['Low'], cData['Close'], dates=cData.index)
+                st.plotly_chart(fChart, use_container_width=True)
+                st.subheader("Stock Price Prediction")
+                st.write(f"Predicted price for {symbol_inp.split('.')[0]} is {data}")
+
+            if stockPredModel.responseCode != 200 and stockPredModel.responseCode != 999:
+                st.warning("Either stock not found or the server is down. Please try again later.")
+        else:
+            st.error("Please select a symbol to continue")
+    
+
 st.subheader("How it works?")
 st.write("""
         The stock price prediction is based on the Long Short-Term Memory (LSTM) neural network. Whenever any symbol is entered, we fetch relevant data i.e. price, trend, etc on either daily or hourly timeframe as selected for prediction, which is then fed into the custom trained LSTM model per stock on the backend. The model then predicts the future stock price based on the historical data and the current trend. The prediction is then displayed to the user.\n
