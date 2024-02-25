@@ -3,12 +3,12 @@ import time
 import streamlit as st
 from PIL import Image
 import os
-from assets import diseaseData
+from assets.swasthai import diseaseData
 
 # set page title, icon and layout
 st.set_page_config(
     page_title="Rohan Shaw: SwasthAI",
-    page_icon=os.path.join("assets", "swasthai-favicon.png"),
+    page_icon=os.path.join("assets", "swasthai", "swasthai-favicon.png"),
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -22,7 +22,7 @@ with open(
 ) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
-st.image(os.path.join("assets", "swasthai_banner.png"))
+st.image(os.path.join("assets", "swasthai", "swasthai_banner.png"))
 
 with st.sidebar:
     st.title("Select Function")

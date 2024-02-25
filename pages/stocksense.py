@@ -3,7 +3,7 @@ import os
 
 st.set_page_config(
     page_title="Rohan Shaw: StockSense",
-    page_icon=os.path.join("assets", "stocksense-favicon.png"),
+    page_icon=os.path.join("assets", "stocksense", "stocksense-favicon.png"),
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -17,7 +17,7 @@ with open(
 ) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
-st.image(os.path.join("assets", "stocksense_banner.png"))
+st.image(os.path.join("assets", "stocksense", "stocksense_banner.png"))
 st.title('About StockSense')
 with st.container(border=True):
     s1, s2, s3= st.columns(3)
