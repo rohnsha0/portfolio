@@ -34,6 +34,14 @@ with st.sidebar:
                                  help="Used for selecting the model varient to be used for scanning the image.")
 
 st.title('About SwasthAI')
+with st.container(border=True):
+    s1, s2, s3= st.columns(3)
+    with s1:
+        st.write("**Updated:** ___")
+    with s2:
+        st.write("**Version:** ___")
+    with s3:
+        st.write("**Developer:** Rohan Shaw")
 instructions = """
         Either upload your own image or select from
         the sidebar to get a preconfigured image.
