@@ -24,6 +24,8 @@ with open(
 
 st.image(os.path.join("assets", "swasthai", "swasthai_banner.png"))
 
+st.toast("The android application is still under process. Contrubutions are welcome.")
+
 with st.sidebar:
     st.subheader("Contents in the page")
     st.write("Click on the links below to navigate to the respective section.")
@@ -36,6 +38,10 @@ with st.sidebar:
             - [mAI](#mai)
             - [Community](#community)
         - [How it works?](#how-it-works)
+            - [Data Collection](#data-collection)
+            - [Data Preparation & Model Training](#data-preparation--model-training)
+            - [Model Evaluation](#model-evaluation)
+        - [Contributions](#contributions)    
         """
     )
 
@@ -105,8 +111,9 @@ with st.expander("Get an hands-on experience on how the scanning and disease pre
             progress.progress(50, text="Testing")
             time.sleep(2)
             progress.progress(100, "Processed")
-            st.subheader("Results")
-            st.write("Results will be displayed here.")
+            st.error("Feature not yet available.")
+            #st.subheader("Results")
+            #st.write("Results will be displayed here.")
 
 st.warning(
     'All features below are only exclusive on the **[mobile application](https://github.com/rohnsha0/SwasthAI-androidApp)**.')
@@ -141,4 +148,68 @@ st.write("""
     Your medical images like X-rays and MRIs are fed into a special kind of AI called a "Convolutional Neural Network" (CNN). Imagine this network as a web of interconnected neurons, much like the human brain. But instead of thoughts, these neurons process visual information. 
     \nHere's the magic: these neurons have been trained on massive datasets of labeled medical images, learning to recognize patterns linked to specific diseases. Just like doctors identify pneumonia in X-rays, our CNNs do the same, automatically extracting those crucial clues. 
     \nThink of it this way: when you feed in a new image, the CNN analyzes it, calculates the probability of each possible disease, and presents it like a scorecard. It doesn't diagnose, but helps doctors see potential issues they might miss.
+""")
+st.subheader("Data Collection")
+st.write("Data for training the model was primarily collected from kaggle, and other open-source platforms and might be subjected to change in the future. Other than that,  for some specific diseases (like Pneumonia, Tuberculosis, etc) data was collected from other publicly available datasets other than from kaggle.")
+st.subheader("Data Preparation & Model Training")
+st.write("Since, the data collected was not upto the mark, it was augmented (i.e. Randomly flipped and rotated) to increase the size of datasets. After which the images are resized to 256x256 and then fed into the model for training. Below is the architecture of the model used for training the data.")
+st.code(
+    """
+        Model: "sequential_6"
+        _________________________________________________________________
+        Layer (type)                Output Shape              Param #   
+        =================================================================
+        sequential_1 (Sequential)   (None, 256, 256, 3)       0         
+                                                                        
+        conv2d_24 (Conv2D)          (32, 256, 256, 64)        256       
+                                                                        
+        max_pooling2d_24 (MaxPoolin  (32, 128, 128, 64)       0         
+        g2D)                                                            
+                                                                        
+        conv2d_25 (Conv2D)          (32, 128, 128, 64)        4160      
+                                                                        
+        max_pooling2d_25 (MaxPoolin  (32, 64, 64, 64)         0         
+        g2D)                                                            
+                                                                        
+        conv2d_26 (Conv2D)          (32, 62, 62, 64)          36928     
+                                                                        
+        max_pooling2d_26 (MaxPoolin  (32, 31, 31, 64)         0         
+        g2D)                                                            
+                                                                        
+        conv2d_27 (Conv2D)          (32, 30, 30, 64)          16448     
+                                                                        
+        max_pooling2d_27 (MaxPoolin  (32, 15, 15, 64)         0         
+        g2D)                                                            
+                                                                        
+        conv2d_28 (Conv2D)          (32, 14, 14, 64)          16448     
+                                                                        
+        max_pooling2d_28 (MaxPoolin  (32, 7, 7, 64)           0         
+        g2D)                                                            
+                                                                        
+        conv2d_29 (Conv2D)          (32, 6, 6, 64)            16448     
+                                                                        
+        max_pooling2d_29 (MaxPoolin  (32, 3, 3, 64)           0         
+        g2D)                                                            
+                                                                        
+        flatten_4 (Flatten)         (32, 576)                 0         
+                                                                        
+        dense_8 (Dense)             (32, 64)                  36928     
+                                                                        
+        dense_9 (Dense)             (32, 2)                   130       
+                                                                        
+        =================================================================
+        Total params: 127,746
+        Trainable params: 127,746
+        Non-trainable params: 0
+        _________________________________________________________________
+    """
+)
+st.write("The model was trained using the Adam optimizer with a learning rate of 0.001 and a batch size of 32. The model was trained for 15 epochs and was stopped by using early stoppage callback in tensorflow.")
+
+st.subheader("Model Evaluation")
+st.write("The trained model was trained upon 10% of the complete dataset and all metrics were given based upon this tests. The model was evaluated using the following metrics: Accuracy, Precision, Recall, F1-Score, ROC-AUC, and plotting the confusion matrix.")
+st.header('Contributions')
+st.write("""
+    The project is open-source and is available on GitHub. You can contribute to the project by forking the repository and then creating a pull request. The project is open to all kinds of contributions i.e. bug fixes, feature addition, documentation, etc.
+    \nPost to the issues for any bugs, feature requests or any discussions about either [web](https://github.com/rohnsha0/SwasthAI  ) or [android app](https://github.com/rohnsha0/SwasthAI-androidApp) version of the project.
 """)
